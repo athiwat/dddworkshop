@@ -1,6 +1,4 @@
-package com.thoughtworks.ddd.workshop.domain;
-
-import java.util.logging.Level;
+package com.thoughtworks.ddd.workshop.domain.shopping;
 
 public class Item {
     private final Product product;

@@ -1,8 +1,13 @@
-package com.thoughtworks.ddd.workshop.domain;
+package com.thoughtworks.ddd.workshop.domain.shopping;
 
+import com.thoughtworks.ddd.workshop.domain.shopping.Cart;
+import com.thoughtworks.ddd.workshop.domain.shopping.Item;
+import com.thoughtworks.ddd.workshop.domain.shopping.Price;
+import com.thoughtworks.ddd.workshop.domain.shopping.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Currency;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +22,7 @@ class CartTest {
 
     @Test
     void addOneItem() {
-        cart.add(new Item(new Product("product"), 1));
+        cart.add(new Item(new Product("product", new Price(Currency.getInstance("USD"), 10)), 1));
 
         List<Item> cartList = cart.list();
         assertEquals(cartList.size(), 1);
@@ -27,8 +32,8 @@ class CartTest {
 
     @Test
     void addTwoItem() {
-        cart.add((new Item(new Product("p1"),2)));
-        cart.add((new Item(new Product("p2"),3)));
+        cart.add((new Item(new Product("p1" , new Price(Currency.getInstance("USD"), 10)),2)));
+        cart.add((new Item(new Product("p2" , new Price(Currency.getInstance("USD"), 20)),3)));
 
 
         List<Item> cartlist = cart.list();
@@ -44,8 +49,8 @@ class CartTest {
 
     @Test
     void removeItemByProductName() {
-        cart.add((new Item(new Product("p1"),2)));
-        cart.add((new Item(new Product("p2"),3)));
+        cart.add((new Item(new Product("p1", new Price(Currency.getInstance("USD"), 10)),2)));
+        cart.add((new Item(new Product("p2", new Price(Currency.getInstance("USD"), 10)),3)));
 
         cart.remove("p1");
 
@@ -54,8 +59,8 @@ class CartTest {
 
     @Test
     void removeAllItemsByProductName() {
-        cart.add((new Item(new Product("p1"),2)));
-        cart.add((new Item(new Product("p1"),3)));
+        cart.add((new Item(new Product("p1", new Price(Currency.getInstance("USD"), 10)),2)));
+        cart.add((new Item(new Product("p1", new Price(Currency.getInstance("USD"), 10)),3)));
 
         cart.remove("p1");
 
@@ -64,8 +69,8 @@ class CartTest {
 
     @Test
     void logRemoveItems() {
-        cart.add((new Item(new Product("p1"),2)));
-        cart.add((new Item(new Product("p1"),3)));
+        cart.add((new Item(new Product("p1", new Price(Currency.getInstance("USD"), 10)),2)));
+        cart.add((new Item(new Product("p1", new Price(Currency.getInstance("USD"), 10)),3)));
 
         cart.remove("p1");
 
@@ -74,9 +79,9 @@ class CartTest {
 
     @Test
     void nonEqualItem() {
-        cart.add((new Item(new Product("p1"),2)));
+        cart.add((new Item(new Product("p1", new Price(Currency.getInstance("USD"), 10)),2)));
         Cart cart2 = new Cart();
-        cart2.add((new Item(new Product("p1"),2)));
+        cart2.add((new Item(new Product("p1", new Price(Currency.getInstance("USD"), 10)),2)));
 
 
         assertFalse(cart.equals(cart2));
